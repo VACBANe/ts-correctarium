@@ -1,0 +1,34 @@
+* {
+    color: #454c5d;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    height: 78px;
+}
+
+
+.footer {
+    display: flex;
+    background-color: #FCFCFC;
+    height: 120px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+.footer__container {
+    padding: 20px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1280px;
+}

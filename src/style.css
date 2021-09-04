@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+  }
+  form {
+    padding: 80px 60px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 17fr 6fr;
+  }
+  .leftside {
+    display: flex;
+    flex-direction: column;
+  }
+  .rightside {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+  }
+  .header {
+    font-weight: 500;
+    font-size: 30px;
+    margin-bottom: 80px;
+  }
+  .sum {
+    padding-top: 180px;
+    float: right;
+    font-size: 60px;
+    color: #0068e4;
+    font-weight: 100;
+  }
+  .smallPrice {
+    color: #0068e4;
+    font-weight: 400;
+    font-size: 16px;
+  }
+  .textarea {
+    width: 660px;
+    height: 200px;
+    resize: none;
+    border-color: #eeeeee;
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  .textarea:focus {
+    border-color: #0068e4;
+    outline: none;
+  }
+  select {
+    border-color: #eeeeee;
+    padding: 20px;
+    font-size: 14px;
+    border-radius: 10px;
+    width: 344px;
+    margin-bottom: 30px;
+  }
+  select:focus {
+    border-color: #0068e4;
+    outline: none;
+  }
+  input {
+    margin-bottom: 30px;
+    border: 1px solid #eeeeee;
+    padding: 20px;
+    font-size: 14px;
+    border-radius: 10px;
+    width: 344px;
+    outline: none;
+  }
+  .inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  button {
+    margin-top: 30px;
+    width: 260px;
+    background-color: #1b2235;
+    font-weight: 500;
+    font-size: 16px;
+    color: #ffffff;
+    border: 0;
+    padding: 18px 20px;
+    border-radius: 8px;
+    letter-spacing: -0.05px;
+  }
+  
+  button:disabled {
+    color: hsla(0, 0%, 100%, 0.3);
+    background-color: #252e47;
+  }
+  
+  /* CLOSE BUTTON */
+  .close_button {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+  }
+  .close_button:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .close_button::after {
+    content: "";
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    width: 36px;
+    height: 4px;
+    position: absolute;
+    transform: rotate(45deg);
+    margin: auto;
+  }
+  .close_button::before {
+    content: "";
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    width: 36px;
+    height: 4px;
+    position: absolute;
+    transform: rotate(-45deg);
+    margin: auto;
+  }
+  
