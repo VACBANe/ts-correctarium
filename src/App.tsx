@@ -1,7 +1,8 @@
-import React, { ChangeEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { calcDate } from "./date";
 import Footer from "./components/Footer";
+import Select from "./components/Select";
 function App() {
   //PRICE
   const [symbols, setSymbols] = useState("");
@@ -18,12 +19,11 @@ function App() {
     setLanguage(e.target.value);
   };
   useEffect(() => {
+    let numsOfSymbols = symbols.replace(/\s/g, "").length;
     const calcTime = () => {
-      const half = 1800;
-      let numsOfSymbols = symbols.replace(/\s/g, "").length;
       console.log(numsOfSymbols);
       let workTime =
-        half +
+        1800 +
         (numsOfSymbols * 3600) /
           (language === "ukrainian"
             ? 1333
@@ -54,7 +54,7 @@ function App() {
     } else {
       langPrice = 0.12;
     }
-    let price = langPrice * symbols.replace(/\s/g, "").length;
+    let price = langPrice * numsOfSymbols;
     if (language === "ukrainian" || language === "russian") {
       price = price < 50 ? 50 : price;
     } else {
@@ -94,15 +94,23 @@ function App() {
               value={symbols}
             ></textarea>
             <div className={"inputs"}>
-              <input type="text" placeholder={"Ваша електронна пошта"} />
-              <input type="text" placeholder={"Ваше ім'я"} />
+              <input
+                type="email"
+                placeholder={"Ваша електронна пошта"}
+                required
+              />
+              <input type="text" placeholder={"Ваше ім'я"} required />
               <input type="text" placeholder={"Коментар або покликання"} />
-              <select value={language} onChange={langHandler}>
-                <option value={""}>Мова</option>
-                <option value={"ukrainian"}>Українська</option>
-                <option value={"russian"}>Російська</option>
-                <option value={"english"}>Англійська</option>
-              </select>
+              <Select
+                options={[
+                  { text: "Мова", value: "" },
+                  { text: "Українська", value: "ukrainian" },
+                  { text: "Російська", value: "russian" },
+                  { text: "Англійська", value: "english" },
+                ]}
+                stateFunc={(e) => langHandler(e)}
+                value={language}
+              />
               <select
                 value={format}
                 onChange={(e) => setFormat(e.target.value)}
