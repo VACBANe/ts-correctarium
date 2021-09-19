@@ -1,4 +1,4 @@
-export function calcDate(seconds, today) {
+export const calcDate = (seconds: number, today: Date) => {
     const tenHour = 36000;
     const sevenHour = 68400;
     const workArr = [1, 2, 3, 4, 5];
@@ -53,7 +53,9 @@ export function calcDate(seconds, today) {
         return [todate(day), totime(tenHour + seconds)];
     }
 }
-function onlyWorkTime(today, days) {
+
+
+function onlyWorkTime(today: Date, days: number) {
     let workArr = [1, 2, 3, 4, 5];
     if (days > 0) {
         do {
@@ -74,11 +76,12 @@ function onlyWorkTime(today, days) {
     return today;
 }
 
+
 //Format functions
-function totime(sec) {   
+function totime(sec: number) {   
     sec = Math.ceil(sec);
-    let hours = Math.floor(sec / 60 / 60);
-    let minutes = Math.floor(sec / 60) - (hours * 60);
+    let hours: number | string = Math.floor(sec / 60 / 60);
+    let minutes: number | string = Math.floor(sec / 60) - (hours * 60);
     if (hours < 10) {
         hours = `0${hours}`;
     }
@@ -87,9 +90,9 @@ function totime(sec) {
     }
     return `${hours}:${minutes}`;
 }
-function todate(date) {
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
+function todate(date: Date) {
+    let day: number | string = date.getDate();
+    let month: number | string = date.getMonth() + 1;
     let year = date.getFullYear();
     if (day < 10) {
         day = `0${day}`;
@@ -99,3 +102,4 @@ function todate(date) {
     }
     return `${day}.${month}.${year}`;
 }
+

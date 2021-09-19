@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import { calcDate } from "./date";
+import {calcDate} from "./datemodule";
 import Footer from "./components/Footer";
 import Select from "./components/Select";
-function App() {
+const App: React.FC = () => {
   //PRICE
-  const [symbols, setSymbols] = useState("");
-  const [language, setLanguage] = useState("ukrainian");
-  const [sum, setSum] = useState("0");
-  const [format, setFormat] = useState("none");
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [symbols, setSymbols] = useState<string>("");
+  const [language, setLanguage] = useState<string>("ukrainian");
+  const [sum, setSum] = useState<string>("0");
+  const [format, setFormat] = useState<string>("none");
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
   //TIME
-  const [time, setTime] = useState("0");
+  const [time, setTime] = useState<string>("0");
   const symbolsHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSymbols(e.target.value);
   };
@@ -20,7 +20,7 @@ function App() {
   };
   useEffect(() => {
     let numsOfSymbols = symbols.replace(/\s/g, "").length;
-    const calcTime = () => {
+    const calcTime: () => void = () => {
       console.log(numsOfSymbols);
       let workTime =
         1800 +

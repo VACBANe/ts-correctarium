@@ -1,14 +1,15 @@
+import React from "react";
 type arrElements = {
     value: string,
     text: string
 }
-type SelectProps = {
+interface SelectProps {
     options: arrElements[],
     stateFunc: (e: React.ChangeEvent<HTMLSelectElement>) => void,
     value: any
 }
 
-const Select = ({options, value, stateFunc}: SelectProps) => {
+const Select: React.FC<SelectProps> = ({options, value, stateFunc}) => {
     return (
         <div>
             <select value={value} onChange={stateFunc}>
