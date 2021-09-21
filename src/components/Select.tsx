@@ -5,14 +5,14 @@ type arrElements = {
 }
 interface SelectProps {
     options: arrElements[],
-    stateFunc: (e: React.ChangeEvent<HTMLSelectElement>) => void,
-    value: any
+    stateFunc?: React.Dispatch<React.SetStateAction<string>>,
+    value?: string
 }
 
 const Select: React.FC<SelectProps> = ({options, value, stateFunc}) => {
     return (
         <div>
-            <select value={value} onChange={stateFunc}>
+            <select value={value} onChange={stateFunc && (e => stateFunc(e.target.value))}>
                 {options.map((item) => <option key={item.value} value={item.value}>{item.text}</option>)}
             </select>
         </div> 

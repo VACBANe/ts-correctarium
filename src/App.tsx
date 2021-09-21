@@ -3,21 +3,14 @@ import "./style.css";
 import {calcDate} from "./datemodule";
 import Footer from "./components/Footer";
 import Select from "./components/Select";
+import RightSide from "./components/RightSide";
 const App: React.FC = () => {
-  //PRICE
   const [symbols, setSymbols] = useState<string>("");
   const [language, setLanguage] = useState<string>("ukrainian");
   const [sum, setSum] = useState<string>("0");
   const [format, setFormat] = useState<string>("none");
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  //TIME
   const [time, setTime] = useState<string>("0");
-  const symbolsHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setSymbols(e.target.value);
-  };
-  const langHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setLanguage(e.target.value);
-  };
   useEffect(() => {
     let numsOfSymbols = symbols.replace(/\s/g, "").length;
     const calcTime: () => void = () => {
@@ -83,14 +76,14 @@ const App: React.FC = () => {
         <form>
           <div className="leftside">
             <div className="header">Замовити переклад або редагування</div>
-            <select>
-              <option disabled>Послуга</option>
-              <option>Редагування</option>
-              <option>Переклад</option>
-            </select>
+            <Select options={[
+              {text: "Послуга", value: ""},
+              {text: "Редагування", value: ""},
+              {text: "Переклад", value: ""}
+            ]}/>
             <textarea
               className="textarea"
-              onChange={symbolsHandler}
+              onChange={(e) => setSymbols(e.target.value)}
               value={symbols}
             ></textarea>
             <div className={"inputs"}>
@@ -108,31 +101,21 @@ const App: React.FC = () => {
                   { text: "Російська", value: "russian" },
                   { text: "Англійська", value: "english" },
                 ]}
-                stateFunc={(e) => langHandler(e)}
+                stateFunc={setLanguage}
                 value={language}
               />
-              <select
+              <Select options={[
+                {text: "Формат", value: ""},
+                {text: "Doc", value: "doc"},
+                {text: "Docx", value: "docx"},
+                {text: "RTF", value: "rtf"}
+              ]}
+                stateFunc={setFormat}
                 value={format}
-                onChange={(e) => setFormat(e.target.value)}
-              >
-                <option disabled>Формат</option>
-                <option value={"none"}>none</option>
-                <option value={"doc"}>doc</option>
-                <option value={"docx"}>docx</option>
-                <option value={"rtf"}>rtf</option>
-              </select>
+              />
             </div>
           </div>
-          <div className="rightside">
-            <div className="close_button"></div>
-            <div>
-              <div className={"sum"}>
-                {sum} <span className="smallPrice">грн</span>
-              </div>
-            </div>
-            {time}
-            <button disabled={isDisabled}>Замовити</button>
-          </div>
+          <RightSide sum={sum} time={time} isDisabled={isDisabled }/>
         </form>
       </div>
       <Footer />
