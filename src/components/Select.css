@@ -1,0 +1,11 @@
+.bg {
+  padding: 0;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100%;
+  z-index: 2;
+  background-color: rgba(163, 163, 163, 0.363);
+}

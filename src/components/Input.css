@@ -1,0 +1,24 @@
+input {
+  border: none;
+  padding: 20px;
+  font-size: 14px;
+  border-radius: 10px;
+  width: 344px;
+  outline: none;
+}
+
+
+.field-container {
+  display: block;
+  border: 1px solid #eeeeee;
+  width: 344px;
+  border-radius: 10px;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.field-legend {
+  margin-left: 30px;
+  height: 14px;
+  font-size: 12px;
+}

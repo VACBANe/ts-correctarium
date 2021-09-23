@@ -69,15 +69,6 @@
     border-color: #0068e4;
     outline: none;
   }
-  input {
-    margin-bottom: 30px;
-    border: 1px solid #eeeeee;
-    padding: 20px;
-    font-size: 14px;
-    border-radius: 10px;
-    width: 344px;
-    outline: none;
-  }
   .inputs {
     display: grid;
     grid-template-columns: 1fr 1fr;

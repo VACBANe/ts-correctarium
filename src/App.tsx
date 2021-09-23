@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import {calcDate} from "./datemodule";
+import { calcDate } from "./datemodule";
 import Footer from "./components/Footer";
 import Select from "./components/Select";
+import Input from "./components/Input";
 const App: React.FC = () => {
   //PRICE
   const [symbols, setSymbols] = useState<string>("");
@@ -10,6 +11,9 @@ const App: React.FC = () => {
   const [sum, setSum] = useState<string>("0");
   const [format, setFormat] = useState<string>("none");
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [comment, setComment] = useState<string>("");
   //TIME
   const [time, setTime] = useState<string>("0");
   const symbolsHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -94,13 +98,9 @@ const App: React.FC = () => {
               value={symbols}
             ></textarea>
             <div className={"inputs"}>
-              <input
-                type="email"
-                placeholder={"Ваша електронна пошта"}
-                required
-              />
-              <input type="text" placeholder={"Ваше ім'я"} required />
-              <input type="text" placeholder={"Коментар або покликання"} />
+              <Input text="Ваша електронна пошта" onChange={setEmail} value={email} isRequired={true}/>
+              <Input text="Ваше ім'я" onChange={setName} value={name} isRequired={true}/>
+              <Input text="Коментар або покликання" onChange={setComment} value={comment}/>
               <Select
                 options={[
                   { text: "Мова", value: "" },
@@ -138,6 +138,6 @@ const App: React.FC = () => {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
