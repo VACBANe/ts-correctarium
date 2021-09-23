@@ -5,9 +5,25 @@ type arrElements = {
   text: string;
 };
 interface SelectProps {
+<<<<<<< HEAD
   options: arrElements[];
   stateFunc: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   value: any;
+=======
+    options: arrElements[],
+    stateFunc?: React.Dispatch<React.SetStateAction<string>>,
+    value?: string
+}
+
+const Select: React.FC<SelectProps> = ({options, value, stateFunc}) => {
+    return (
+        <div>
+            <select value={value} onChange={stateFunc && (e => stateFunc(e.target.value))}>
+                {options.map((item) => <option key={item.value} value={item.value}>{item.text}</option>)}
+            </select>
+        </div> 
+    );
+>>>>>>> fe28b90fbbc219a63535a97cded43d75d32940f6
 }
 const Select: React.FC<SelectProps> = ({ options, value, stateFunc }) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
