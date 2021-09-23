@@ -9,7 +9,6 @@ interface SelectProps {
   stateFunc: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   value: any;
 }
-
 const Select: React.FC<SelectProps> = ({ options, value, stateFunc }) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const closeSelect = () => {
@@ -23,7 +22,7 @@ const Select: React.FC<SelectProps> = ({ options, value, stateFunc }) => {
     return () => {
       document.removeEventListener('click', closeSelect, true);
     }
-  }, [closeSelect])
+  }, [])
   return (
     <div>
       <fieldset className="field-container">
