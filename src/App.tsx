@@ -25,9 +25,9 @@ const App: React.FC = () => {
       let workTime: number =
         1800 +
         (numsOfSymbols * 3600) /
-          (language === ("ukrainian" || "russian") ? 1333 : 333);
+          (language === "ukrainian"? 1333 : (language === "russian") ? 1333 : 333);
       workTime = workTime < 3600 ? 3600 : +workTime.toFixed();
-      if (format === ("rtf" || "doc" || "docx")) {
+      if (format === "rtf" || format === "doc" || format === "docx") {
       } else {
         workTime *= 1.2;
       }
