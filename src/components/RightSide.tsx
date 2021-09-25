@@ -17,7 +17,7 @@ const RightSide: React.FC<Props> = ({ sum, time, isDisabled }) => {
         </div>
       </div>
       {time}
-      <button disabled={isDisabled}>Замовити</button>
+      <button disabled={isDisabled} className={"order-button"}>Замовити</button>
     </div>
   );
 };

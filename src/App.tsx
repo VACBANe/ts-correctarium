@@ -3,29 +3,24 @@ import "./style.css";
 import { calcDate } from "./datemodule";
 import Footer from "./components/Footer";
 import Select from "./components/Select";
-<<<<<<< HEAD
 import Input from "./components/Input";
-=======
 import RightSide from "./components/RightSide";
->>>>>>> fe28b90fbbc219a63535a97cded43d75d32940f6
+
 const App: React.FC = () => {
   const [symbols, setSymbols] = useState<string>("");
-  const [language, setLanguage] = useState<string>("ukrainian");
+  const [language, setLanguage] = useState<string>("");
   const [sum, setSum] = useState<string>("0");
-  const [format, setFormat] = useState<string>("none");
+  const [format, setFormat] = useState<string>("");
+  const [service, setService] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-<<<<<<< HEAD
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [comment, setComment] = useState<string>("");
   //TIME
-=======
->>>>>>> fe28b90fbbc219a63535a97cded43d75d32940f6
   const [time, setTime] = useState<string>("0");
   useEffect(() => {
     let numsOfSymbols = symbols.replace(/\s/g, "").length;
     const calcTime: () => void = () => {
-      console.log(numsOfSymbols);
       let workTime =
         1800 +
         (numsOfSymbols * 3600) /
@@ -34,7 +29,6 @@ const App: React.FC = () => {
             : language === "russian"
             ? 1333
             : 333);
-      console.log(workTime);
       workTime = workTime < 3600 ? 3600 : +workTime.toFixed();
       if (format === "rtf" || format === "doc" || format === "docx") {
       } else {
@@ -88,10 +82,12 @@ const App: React.FC = () => {
           <div className="leftside">
             <div className="header">Замовити переклад або редагування</div>
             <Select options={[
-              {text: "Послуга", value: ""},
-              {text: "Редагування", value: ""},
-              {text: "Переклад", value: ""}
-            ]}/>
+              {text: "Редагування", value: "edit"},
+              {text: "Переклад", value: "translate"}
+            ]} stateFunc={setService}
+            value={service}
+              legendText="Послуга"
+            />
             <textarea
               className="textarea"
               onChange={(e) => setSymbols(e.target.value)}
@@ -103,22 +99,23 @@ const App: React.FC = () => {
               <Input text="Коментар або покликання" onChange={setComment} value={comment}/>
               <Select
                 options={[
-                  { text: "Мова", value: "" },
                   { text: "Українська", value: "ukrainian" },
                   { text: "Російська", value: "russian" },
                   { text: "Англійська", value: "english" },
                 ]}
                 stateFunc={setLanguage}
                 value={language}
+                legendText="Мова"
               />
               <Select options={[
-                {text: "Формат", value: ""},
+                {text: "None", value: "none"},
                 {text: "Doc", value: "doc"},
                 {text: "Docx", value: "docx"},
                 {text: "RTF", value: "rtf"}
               ]}
                 stateFunc={setFormat}
                 value={format}
+                legendText="Формат"
               />
             </div>
           </div>

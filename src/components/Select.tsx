@@ -1,60 +1,72 @@
-import React, { useEffect, useState } from "react";
-import './Select.css';
+import React, { RefObject, useEffect, useRef, useState } from "react";
+import "./Select.css";
+import arrow from "../assets/arrow_down.svg";
 type arrElements = {
   value: string;
   text: string;
 };
 interface SelectProps {
-<<<<<<< HEAD
   options: arrElements[];
-  stateFunc: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  value: any;
-=======
-    options: arrElements[],
-    stateFunc?: React.Dispatch<React.SetStateAction<string>>,
-    value?: string
+  stateFunc: React.Dispatch<React.SetStateAction<string>>;
+  value?: string;
+  legendText: string;
 }
 
-const Select: React.FC<SelectProps> = ({options, value, stateFunc}) => {
-    return (
-        <div>
-            <select value={value} onChange={stateFunc && (e => stateFunc(e.target.value))}>
-                {options.map((item) => <option key={item.value} value={item.value}>{item.text}</option>)}
-            </select>
-        </div> 
-    );
->>>>>>> fe28b90fbbc219a63535a97cded43d75d32940f6
-}
-const Select: React.FC<SelectProps> = ({ options, value, stateFunc }) => {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
-  const closeSelect = () => {
-    console.log('clicked')
-    if(isOpened) {
-      setIsOpened(false);
-    }
-  }
+const useOnClickOutside = (
+  ref: RefObject<HTMLDivElement>,
+  closeMenu: () => void
+) => {
   useEffect(() => {
-    document.addEventListener('click', closeSelect, true);
+    const listener = (event: MouseEvent) => {
+      if (
+        ref.current &&
+        event.target &&
+        ref.current.contains(event.target as Node)
+      ) {
+        return;
+      }
+      closeMenu();
+    };
+
+    document.addEventListener("mousedown", listener);
     return () => {
-      document.removeEventListener('click', closeSelect, true);
-    }
-  }, [])
+      document.removeEventListener("mousedown", listener);
+    };
+  }, [ref, closeMenu]);
+};
+const Select: React.FC<SelectProps> = ({ options, value, stateFunc, legendText }) => {
+  const [isOpened, setIsOpened] = useState<boolean>(false);
+  const node = useRef<HTMLDivElement>(null);
+  const [selectedText, setSelectedText] = useState<string>("");
+  useOnClickOutside(node, () => setIsOpened(false));
   return (
     <div>
-      <fieldset className="field-container">
-        <legend className="field-legend">{value}</legend>
-        <label onClick={() => setIsOpened(true)}>{value}</label>
-        {isOpened && <div>{options.map((item) => (
-          <label>{item.text}</label>
-        ))}</div>}
+      <fieldset
+        className={isOpened ? "field-container opened" : "field-container"}
+        onClick={() => setIsOpened(true)}
+      >
+        <legend className="select-legend">{value ? legendText : ""}</legend>
+        <div>
+        <label className={value ? "field-label" : "field-label placeholder"}>{value ? selectedText : legendText}</label>
+        <img className={isOpened ? "arrow arrow-up" : "arrow"} src={arrow} alt={"arrow"}/>
+        </div>
       </fieldset>
-      <select value={value} onChange={stateFunc}>
-        {options.map((item) => (
-          <option key={item.value} value={item.value}>
-            {item.text}
-          </option>
-        ))}
-      </select>
+      {isOpened && (
+        <div ref={node} className="select-list">
+          {options.map((item) => (
+            <label
+              className="select-item"
+              onClick={() => {
+                stateFunc(item.value);
+                setIsOpened(false);
+                setSelectedText(item.text);
+              }}
+            >
+              {item.text}
+            </label>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

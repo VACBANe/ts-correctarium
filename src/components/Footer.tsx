@@ -13,6 +13,7 @@ const Footer = () => {
                     src={"https://correctarium.com/img/footer_logo.png"}
                     alt="logo"
                     style={{ height: "78px" }}
+                    className={"logo"}
                 />
                 <div className="contacts">
                     <p>Надіслати текст на&nbsp;переклад:</p>

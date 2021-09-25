@@ -1,6 +1,6 @@
 input {
   border: none;
-  padding: 20px;
+  padding: 18px;
   font-size: 14px;
   border-radius: 10px;
   width: 344px;
@@ -8,7 +8,7 @@ input {
 }
 
 
-.field-container {
+.field-input-container {
   display: block;
   border: 1px solid #eeeeee;
   width: 344px;
@@ -21,4 +21,23 @@ input {
   margin-left: 30px;
   height: 14px;
   font-size: 12px;
+}
+
+
+.focused {
+  border: 1px solid #0068e4;
+  outline: none;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: #a0a1a4;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #a0a1a4;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #a0a1a4;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #a0a1a4;
 }
