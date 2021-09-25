@@ -34,7 +34,12 @@ const useOnClickOutside = (
     };
   }, [ref, closeMenu]);
 };
-const Select: React.FC<SelectProps> = ({ options, value, stateFunc, legendText }) => {
+const Select: React.FC<SelectProps> = ({
+  options,
+  value,
+  stateFunc,
+  legendText,
+}) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const node = useRef<HTMLDivElement>(null);
   const [selectedText, setSelectedText] = useState<string>("");
@@ -47,8 +52,14 @@ const Select: React.FC<SelectProps> = ({ options, value, stateFunc, legendText }
       >
         <legend className="select-legend">{value ? legendText : ""}</legend>
         <div>
-        <label className={value ? "field-label" : "field-label placeholder"}>{value ? selectedText : legendText}</label>
-        <img className={isOpened ? "arrow arrow-up" : "arrow"} src={arrow} alt={"arrow"}/>
+          <label className={value ? "field-label" : "field-label placeholder"}>
+            {value ? selectedText : legendText}
+          </label>
+          <img
+            className={isOpened ? "arrow arrow-up" : "arrow"}
+            src={arrow}
+            alt={"arrow"}
+          />
         </div>
       </fieldset>
       {isOpened && (

@@ -1,5 +1,5 @@
 import React from "react";
-import "../style.css";
+import "./RightSide.css";
 
 interface Props {
   time: string;
@@ -10,14 +10,14 @@ interface Props {
 const RightSide: React.FC<Props> = ({ sum, time, isDisabled }) => {
   return (
     <div className="rightside">
-      <div className="close_button" onClick={() => alert("Закрыто")}></div>
-      <div>
-        <div className={"sum"}>
-          {sum} <span className="smallPrice">грн</span>
-        </div>
+      <div className="close_button" onClick={() => alert("Вийти")}></div>
+      <div className={"sum"}>
+        {sum} <span className="smallPrice">грн</span>
       </div>
-      {time}
-      <button disabled={isDisabled} className={"order-button"}>Замовити</button>
+      <div className="time">{time}</div>
+      <button disabled={isDisabled} className={"order-button"}>
+        Замовити
+      </button>
     </div>
   );
 };

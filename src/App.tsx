@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import "./style.css";
 import { calcDate } from "./datemodule";
 import Footer from "./components/Footer";
@@ -16,35 +17,30 @@ const App: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [comment, setComment] = useState<string>("");
-  //TIME
   const [time, setTime] = useState<string>("0");
+
   useEffect(() => {
-    let numsOfSymbols = symbols.replace(/\s/g, "").length;
+    let numsOfSymbols: number = symbols.replace(/\s/g, "").length;
     const calcTime: () => void = () => {
-      let workTime =
+      let workTime: number =
         1800 +
         (numsOfSymbols * 3600) /
-          (language === "ukrainian"
-            ? 1333
-            : language === "russian"
-            ? 1333
-            : 333);
+          (language === ("ukrainian" || "russian") ? 1333 : 333);
       workTime = workTime < 3600 ? 3600 : +workTime.toFixed();
-      if (format === "rtf" || format === "doc" || format === "docx") {
+      if (format === ("rtf" || "doc" || "docx")) {
       } else {
         workTime *= 1.2;
       }
-      let day = new Date();
-      let result = calcDate(+workTime, day);
+      let day: Date = new Date();
+      let result: string[] | number = calcDate(+workTime, day);
       if (Array.isArray(result)) {
-        setTime(`Работа будет выполнена ${result[0]} в ${result[1]}`);
+        setTime(`Термін здавання: ${result[0]} о ${result[1]}`);
       } else {
-        let hours = Math.floor(result / 60 / 60);
-        let minutes = Math.floor(result / 60) - hours * 60;
-        setTime(`Работа будет выполнена через ${hours} ч. и ${minutes} мин.`);
+        let hours: number = Math.floor(result / 60 / 60);
+        let minutes: number = Math.floor(result / 60) - hours * 60;
+        setTime(`Термін здавання: через ${hours} г. и ${minutes} хм.`);
       }
     };
-
     calcTime();
     let langPrice = 0;
     if (language === "ukrainian" || language === "russian") {
@@ -68,11 +64,7 @@ const App: React.FC = () => {
     } else {
       setSum(price.toFixed(2));
     }
-    if (symbols && language) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
+    symbols && language ? setIsDisabled(false) : setIsDisabled(true);
   }, [language, symbols, format]);
 
   return (
@@ -81,11 +73,13 @@ const App: React.FC = () => {
         <form>
           <div className="leftside">
             <div className="header">Замовити переклад або редагування</div>
-            <Select options={[
-              {text: "Редагування", value: "edit"},
-              {text: "Переклад", value: "translate"}
-            ]} stateFunc={setService}
-            value={service}
+            <Select
+              options={[
+                { text: "Редагування", value: "edit" },
+                { text: "Переклад", value: "translate" },
+              ]}
+              stateFunc={setService}
+              value={service}
               legendText="Послуга"
             />
             <textarea
@@ -94,9 +88,23 @@ const App: React.FC = () => {
               value={symbols}
             ></textarea>
             <div className={"inputs"}>
-              <Input text="Ваша електронна пошта" onChange={setEmail} value={email} isRequired={true}/>
-              <Input text="Ваше ім'я" onChange={setName} value={name} isRequired={true}/>
-              <Input text="Коментар або покликання" onChange={setComment} value={comment}/>
+              <Input
+                text="Ваша електронна пошта"
+                onChange={setEmail}
+                value={email}
+                isRequired={true}
+              />
+              <Input
+                text="Ваше ім'я"
+                onChange={setName}
+                value={name}
+                isRequired={true}
+              />
+              <Input
+                text="Коментар або покликання"
+                onChange={setComment}
+                value={comment}
+              />
               <Select
                 options={[
                   { text: "Українська", value: "ukrainian" },
@@ -107,19 +115,20 @@ const App: React.FC = () => {
                 value={language}
                 legendText="Мова"
               />
-              <Select options={[
-                {text: "None", value: "none"},
-                {text: "Doc", value: "doc"},
-                {text: "Docx", value: "docx"},
-                {text: "RTF", value: "rtf"}
-              ]}
+              <Select
+                options={[
+                  { text: "None", value: "none" },
+                  { text: "Doc", value: "doc" },
+                  { text: "Docx", value: "docx" },
+                  { text: "RTF", value: "rtf" },
+                ]}
                 stateFunc={setFormat}
                 value={format}
                 legendText="Формат"
               />
             </div>
           </div>
-          <RightSide sum={sum} time={time} isDisabled={isDisabled }/>
+          <RightSide sum={sum} time={time} isDisabled={isDisabled} />
         </form>
       </div>
       <Footer />

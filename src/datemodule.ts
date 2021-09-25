@@ -23,7 +23,7 @@ export const calcDate = (seconds: number, today: Date) => {
         daysForTask = Math.floor((seconds - 60) / 32400);
         if (daysForTask >= 1) {
           seconds -= daysForTask * 32400;
-          day = onlyWorkTime(today, daysForTask);
+          day = onlyWorkTime(today, daysForTask + 1);
         } else {
           day = onlyWorkTime(today, 1);
         }

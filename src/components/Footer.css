@@ -21,7 +21,7 @@ img {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 100%;
+    max-width: 100vw;
 }
 
 .footer__container {
@@ -29,7 +29,8 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1280px;
+    width: 100vw;
+    max-width: 1280px;
 }
 
 @media only screen and (max-width: 767px) {
