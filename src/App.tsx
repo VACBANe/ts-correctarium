@@ -38,7 +38,7 @@ const App: React.FC = () => {
       } else {
         let hours: number = Math.floor(result / 60 / 60);
         let minutes: number = Math.floor(result / 60) - hours * 60;
-        setTime(`Термін здавання: через ${hours} г. и ${minutes} хв.`);
+        setTime(`Термін здавання: через ${hours} г. і ${minutes} хв.`);
       }
     };
     calcTime();
