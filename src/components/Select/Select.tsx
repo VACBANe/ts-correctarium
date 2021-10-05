@@ -1,6 +1,6 @@
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import "./Select.css";
-import arrow from "../assets/arrow_down.svg";
+import arrow from "../../assets/arrow_down.svg";
 type arrElements = {
   value: string;
   text: string;

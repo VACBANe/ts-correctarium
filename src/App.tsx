@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import "./style.css";
 import { calcDate } from "./datemodule";
-import Footer from "./components/Footer";
-import Select from "./components/Select";
-import Input from "./components/Input";
-import RightSide from "./components/RightSide";
+import Footer from "./components/Footer/Footer";
+import Select from "./components/Select/Select";
+import Input from "./components/Input/Input";
+import RightSide from "./components/RightSide/RightSide";
 
 const App: React.FC = () => {
   const [symbols, setSymbols] = useState<string>("");
