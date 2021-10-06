@@ -1,4 +1,4 @@
-export default function toDate (date: Date) {
+export const convertDate = (date: Date) => {
   let day: number | string = date.getDate()
   let month: number | string = date.getMonth() + 1
   const year = date.getFullYear()

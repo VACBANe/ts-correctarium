@@ -4,7 +4,7 @@ const initialState = {
   isDisabled: true,
   symbols: '',
   language: '',
-  sum: '0',
+  price: '0',
   format: '',
   service: '',
   name: '',

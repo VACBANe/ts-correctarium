@@ -1,19 +1,18 @@
 import * as actionTypes from './types'
 
-export function onChangeField (field: string, value: string) {
+export const onChangeField = (field: string, value: string) => {
   return {
     type: actionTypes.ON_CHANGE,
     field,
     value
   }
 }
-
-export function enableButton () {
+export const enableButton = () => {
   return {
     type: actionTypes.ENABLE_BUTTON
   }
 }
-export function disableButton () {
+export const disableButton = () => {
   return {
     type: actionTypes.DISABLE_BUTTON
   }

@@ -36,6 +36,7 @@ const useOnClickOutside = (
     }
   }, [ref, closeMenu])
 }
+
 const Select: React.FC<SelectProps> = ({
   options,
   value,

@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import './Input.css'
 interface Props {
-  text: string;
+  legendText: string;
   value: string;
   valueName: string;
   isRequired?: boolean;
   onChangeField: (field: string, value: string) => any;
 }
 const Input: React.FC<Props> = ({
-  text,
+  legendText,
   isRequired = false,
   onChangeField,
   valueName,
@@ -23,13 +23,13 @@ const Input: React.FC<Props> = ({
         isFocused ? 'field-input-container focused' : 'field-input-container'
       }
     >
-      <legend className="field-legend">{value && text}</legend>
+      <legend className="field-legend">{value && legendText}</legend>
       <input
         onFocus={() => setFocuse(true)}
         onBlur={() => setFocuse(false)}
         required={isRequired}
         type="text"
-        placeholder={text}
+        placeholder={legendText}
         onChange={(e) => dispatch(onChangeField(valueName, e.target.value))}
         className={value ? '' : 'input-placeholder'}
       />
