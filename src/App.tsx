@@ -2,12 +2,10 @@ import React, { FC, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './style.css'
-import { calcTime } from './modules/calcTime'
+import { calcTimeAndPrice } from './modules/calcTimeAndPrice'
 import { Footer, Input, RightSide, Select } from './components/components'
 import {
-  onChangeField,
-  enableButton,
-  disableButton
+  onChangeField
 } from './store/actionCreator'
 import { Dispatch } from 'redux'
 
@@ -28,36 +26,8 @@ const App: FC = () => {
   const dispatch: Dispatch<any> = useDispatch()
   const data = useSelector((state: State) => state)
   useEffect(() => {
-    const numsOfSymbols: number = data.symbols.replace(/\s/g, '').length
-    let price: number
-    const isCyrillic =
-      !!(data.language === 'ukrainian' || data.language === 'russian')
-    const normalFormat =
-      !!(data.format === 'rtf' || data.format === 'doc' || data.format === 'docx')
-
-    dispatch(
-      onChangeField('time', calcTime(numsOfSymbols, isCyrillic, normalFormat))
-    )
-
-    if (isCyrillic) {
-      price = 0.05 * numsOfSymbols
-      price = price < 50 ? 50 : price
-    } else {
-      price = 0.12 * numsOfSymbols
-      price = price < 120 ? 120 : price
-    }
-
-    price *= normalFormat ? 1 : 1.2
-    if (!data.language || !data.symbols) {
-      dispatch(onChangeField('sum', '0'))
-      dispatch(onChangeField('time', ''))
-    } else {
-      dispatch(onChangeField('sum', price.toFixed(2)))
-    }
-    data.symbols && data.language
-      ? dispatch(enableButton())
-      : dispatch(disableButton())
-  }, [data.language, data.symbols, data.format, dispatch])
+    calcTimeAndPrice(data, dispatch)
+  }, [data.symbols, data.language, data.format])
 
   return (
   <div>
