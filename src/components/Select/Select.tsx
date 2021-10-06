@@ -1,15 +1,17 @@
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import "./Select.css";
 import arrow from "../../assets/arrow_down.svg";
+import { useDispatch } from "react-redux";
 type arrElements = {
   value: string;
   text: string;
 };
 interface SelectProps {
   options: arrElements[];
-  stateFunc: React.Dispatch<React.SetStateAction<string>>;
+  onChangeField: (field: string, value: string) => any;
   value?: string;
   legendText: string;
+  valueName: string;
 }
 
 const useOnClickOutside = (
@@ -37,9 +39,11 @@ const useOnClickOutside = (
 const Select: React.FC<SelectProps> = ({
   options,
   value,
-  stateFunc,
+  onChangeField,
   legendText,
+  valueName
 }) => {
+  const dispatch = useDispatch();
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const node = useRef<HTMLDivElement>(null);
   const [selectedText, setSelectedText] = useState<string>("");
@@ -68,7 +72,7 @@ const Select: React.FC<SelectProps> = ({
             <label
               className="select-item"
               onClick={() => {
-                stateFunc(item.value);
+                dispatch(onChangeField(valueName, item.value));
                 setIsOpened(false);
                 setSelectedText(item.text);
               }}

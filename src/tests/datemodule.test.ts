@@ -1,4 +1,4 @@
-import { calcDate } from "../datemodule";
+import { calcDate } from "../modules/datemodule";
 
 describe("test add function", () => {
   it("Заказ в выходной день, работы на часа 4", () => {

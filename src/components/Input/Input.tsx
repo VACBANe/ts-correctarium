@@ -3,14 +3,16 @@ import "./Input.css";
 interface Props {
   text: string;
   value: string;
-  onChange: React.Dispatch<React.SetStateAction<string>>;
+  valueName: string;
   isRequired?: boolean;
+  onChangeField: (field: string, value: string) => any;
 }
 const Input: React.FC<Props> = ({
   text,
-  value,
-  onChange,
   isRequired = false,
+  onChangeField,
+  valueName,
+  value
 }) => {
   const [isFocused, setFocuse] = useState<boolean>(false);
   return (
@@ -26,8 +28,7 @@ const Input: React.FC<Props> = ({
         required={isRequired}
         type="text"
         placeholder={text}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChangeField(valueName, e.target.value)}
         className={value ? "" : "input-placeholder"}
       />
     </fieldset>
