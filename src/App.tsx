@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { FC, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import "./style.css";
-import { calcDate } from "./modules/datemodule";
-import Footer from "./components/Footer/Footer";
-import Select from "./components/Select/Select";
-import Input from "./components/Input/Input";
-import RightSide from "./components/RightSide/RightSide";
+import './style.css'
+import { calcTime } from './modules/calcTime'
+import { Footer, Input, RightSide, Select } from './components/components'
 import {
   onChangeField,
   enableButton,
-  disableButton,
-} from "./store/actionCreators";
-import { Dispatch } from "redux";
+  disableButton
+} from './store/actionCreator'
+import { Dispatch } from 'redux'
 
 interface State {
+  isDisabled: boolean;
   symbols: string;
   language: string;
   format: string;
@@ -25,168 +23,121 @@ interface State {
   time: string;
   sum: string;
 }
-interface Button {
-  isDisabled: boolean;
-}
-interface IButton {
-  button: Button;
-}
-interface IState {
-  change: State;
-}
 
-const App: React.FC = (props) => {
-  const dispatch: Dispatch<any> = useDispatch();
-  const data = useSelector((state: IState) => state);
-  const buttoninfo = useSelector((state: IButton) => state);
-  const { change } = data;
+const App: FC = () => {
+  const dispatch: Dispatch<any> = useDispatch()
+  const data = useSelector((state: State) => state)
   useEffect(() => {
-    let numsOfSymbols: number = change.symbols.replace(/\s/g, "").length;
-    let normalFormat: boolean;
-    let isCyrillic: boolean;
-    let price: number;
-    if(change.language === "ukrainian" || change.language === "russian") {
-      isCyrillic = true;
-    } else {
-      isCyrillic = false;
-    }
-    if (
-      change.format === "rtf" ||
-      change.format === "doc" ||
-      change.format === "docx"
-    ) {
-      normalFormat = true;
-    } else {
-      normalFormat = false;
-    }
+    const numsOfSymbols: number = data.symbols.replace(/\s/g, '').length
+    let price: number
+    const isCyrillic =
+      !!(data.language === 'ukrainian' || data.language === 'russian')
+    const normalFormat =
+      !!(data.format === 'rtf' || data.format === 'doc' || data.format === 'docx')
 
-    const calcTime: () => void = () => {
-      let workTime: number =
-        1800 +
-        (numsOfSymbols * 3600) /
-          (isCyrillic ? 1333 : 333);
+    dispatch(
+      onChangeField('time', calcTime(numsOfSymbols, isCyrillic, normalFormat))
+    )
 
-      workTime = workTime < 3600 ? 3600 : +workTime.toFixed();
-      workTime *= normalFormat ? 1 : 1.2;
-
-      let result: string[] | number = calcDate(+workTime, new Date());
-
-      if (Array.isArray(result)) {
-        dispatch(
-          onChangeField("time", `Термін здавання: ${result[0]} о ${result[1]}`)
-        );
-      } else {
-        let hours: number = Math.floor(result / 60 / 60);
-        let minutes: number = Math.floor(result / 60) - hours * 60;
-        dispatch(
-          onChangeField(
-            "time",
-            `Термін здавання: через ${hours} г. і ${minutes} хв.`
-          )
-        );
-      }
-    };
-
-    calcTime();
     if (isCyrillic) {
-      price = 0.05 * numsOfSymbols;
-      price = price < 50 ? 50 : price;
+      price = 0.05 * numsOfSymbols
+      price = price < 50 ? 50 : price
     } else {
-      price = 0.12 * numsOfSymbols;
-      price = price < 120 ? 120 : price;
+      price = 0.12 * numsOfSymbols
+      price = price < 120 ? 120 : price
     }
 
-    price *= normalFormat ? 1 : 1.2;
-    if (!change.language || !change.symbols) {
-      dispatch(onChangeField("sum", "0"));
-      dispatch(onChangeField("time", ""));
+    price *= normalFormat ? 1 : 1.2
+    if (!data.language || !data.symbols) {
+      dispatch(onChangeField('sum', '0'))
+      dispatch(onChangeField('time', ''))
     } else {
-      dispatch(onChangeField("sum", price.toFixed(2)));
+      dispatch(onChangeField('sum', price.toFixed(2)))
     }
-    change.symbols && change.language
+    data.symbols && data.language
       ? dispatch(enableButton())
-      : dispatch(disableButton());
-  }, [change.language, change.symbols, change.format]);
+      : dispatch(disableButton())
+  }, [data.language, data.symbols, data.format, dispatch])
 
   return (
-    <div>
+  <div>
       <div className="container">
         <form>
           <div className="leftside">
             <div className="header">Замовити переклад або редагування</div>
             <Select
               options={[
-                { text: "Редагування", value: "edit" },
-                { text: "Переклад", value: "translate" },
+                { text: 'Редагування', value: 'edit' },
+                { text: 'Переклад', value: 'translate' }
               ]}
-              valueName={"service"}
+              valueName={'service'}
               onChangeField={onChangeField}
-              value={change.service}
+              value={data.service}
               legendText="Послуга"
             />
             <textarea
               className="textarea"
               onChange={(e) =>
-                dispatch(onChangeField("symbols", e.target.value))
+                dispatch(onChangeField('symbols', e.target.value))
               }
-              value={change.symbols}
+              value={data.symbols}
             ></textarea>
-            {/* <div className={"inputs"}>
+            <div className={'inputs'}>
               <Input
                 text="Ваша електронна пошта"
-                valueName={"email"}
+                valueName={'email'}
                 isRequired={true}
                 value={data.email}
-                onChangeField={props.onChangeField}
+                onChangeField={onChangeField}
               />
               <Input
                 text="Ваше ім'я"
-                onChangeField={props.onChangeField}
+                onChangeField={onChangeField}
                 value={data.name}
                 isRequired={true}
-                valueName={"name"}
+                valueName={'name'}
               />
               <Input
                 text="Коментар або покликання"
-                onChangeField={props.onChangeField}
+                onChangeField={onChangeField}
                 value={data.comment}
-                valueName={"comment"}
+                valueName={'comment'}
               />
               <Select
                 options={[
-                  { text: "Українська", value: "ukrainian" },
-                  { text: "Російська", value: "russian" },
-                  { text: "Англійська", value: "english" },
+                  { text: 'Українська', value: 'ukrainian' },
+                  { text: 'Російська', value: 'russian' },
+                  { text: 'Англійська', value: 'english' }
                 ]}
-                onChangeField={props.onChangeField}
+                onChangeField={onChangeField}
                 value={data.language}
                 legendText="Мова"
                 valueName="language"
               />
               <Select
                 options={[
-                  { text: "None", value: "none" },
-                  { text: "Doc", value: "doc" },
-                  { text: "Docx", value: "docx" },
-                  { text: "RTF", value: "rtf" },
+                  { text: 'None', value: 'none' },
+                  { text: 'Doc', value: 'doc' },
+                  { text: 'Docx', value: 'docx' },
+                  { text: 'RTF', value: 'rtf' }
                 ]}
-                onChangeField={props.onChangeField}
+                onChangeField={onChangeField}
                 value={data.format}
                 legendText="Формат"
                 valueName="format"
               />
-            </div> */}
+            </div>
           </div>
           <RightSide
-            sum={change.sum}
-            time={change.time}
-            isDisabled={buttoninfo.button.isDisabled}
+            sum={data.sum}
+            time={data.time}
+            isDisabled={data.isDisabled}
           />
         </form>
       </div>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -1,6 +1,7 @@
-import * as actionTypes from './types';
+import * as actionTypes from './types'
 
 const initialState = {
+  isDisabled: true,
   symbols: '',
   language: '',
   sum: '0',
@@ -9,8 +10,8 @@ const initialState = {
   name: '',
   email: '',
   comment: '',
-  time: '0',
-};
+  time: '0'
+}
 interface IAction {
   type: string;
   field: string;
@@ -23,8 +24,18 @@ const onChangeReducer = (state = initialState, action: IAction) => {
         ...state,
         [action.field]: action.value
       }
+    case actionTypes.ENABLE_BUTTON:
+      return {
+        ...state,
+        isDisabled: false
+      }
+    case actionTypes.DISABLE_BUTTON:
+      return {
+        ...state,
+        isDisabled: true
+      }
   }
-  return state;
-};
+  return state
+}
 
-export default onChangeReducer;
+export default onChangeReducer

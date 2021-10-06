@@ -1,7 +1,7 @@
-import React from "react";
-import "./Footer.css";
+import React from 'react'
+import './Footer.css'
 const Footer = () => {
-    return (
+  return (
         <div className="footer">
             <div className="footer__container">
                 <div className="rights">
@@ -10,20 +10,20 @@ const Footer = () => {
                     <p>2015–2021</p>
                 </div>
                 <img
-                    src={"https://correctarium.com/img/footer_logo.png"}
+                    src={'https://correctarium.com/img/footer_logo.png'}
                     alt="logo"
-                    style={{ height: "78px" }}
-                    className={"logo"}
+                    style={{ height: '78px' }}
+                    className={'logo'}
                 />
                 <div className="contacts">
                     <p>Надіслати текст на&nbsp;переклад:</p>
-                    <a href="mailto:manager@correctarium.com" style={{textDecoration: 'underline'}}>
+                    <a href="mailto:manager@correctarium.com" style={{ textDecoration: 'underline' }}>
                         manager@correctarium.com
                     </a>
                 </div>
-            </div>  
+            </div>
         </div>
-    );
-};
+  )
+}
 
-export default Footer;
+export default Footer

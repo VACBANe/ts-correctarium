@@ -1,5 +1,4 @@
-import * as actionTypes from './types';
-
+import * as actionTypes from './types'
 
 export function onChangeField (field: string, value: string) {
   return {

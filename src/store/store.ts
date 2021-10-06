@@ -1,3 +1,3 @@
-import { createStore } from "redux";
-import {rootReducer} from './rootReducer';
-export const store = createStore(rootReducer);
+import { createStore } from 'redux'
+import onChangeReducer from './onChangeReducer'
+export const store = createStore(onChangeReducer)

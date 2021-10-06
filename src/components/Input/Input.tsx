@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import "./Input.css";
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import './Input.css'
 interface Props {
   text: string;
   value: string;
@@ -14,11 +15,12 @@ const Input: React.FC<Props> = ({
   valueName,
   value
 }) => {
-  const [isFocused, setFocuse] = useState<boolean>(false);
+  const dispatch = useDispatch()
+  const [isFocused, setFocuse] = useState<boolean>(false)
   return (
     <fieldset
       className={
-        isFocused ? "field-input-container focused" : "field-input-container"
+        isFocused ? 'field-input-container focused' : 'field-input-container'
       }
     >
       <legend className="field-legend">{value && text}</legend>
@@ -28,11 +30,11 @@ const Input: React.FC<Props> = ({
         required={isRequired}
         type="text"
         placeholder={text}
-        onChange={(e) => onChangeField(valueName, e.target.value)}
-        className={value ? "" : "input-placeholder"}
+        onChange={(e) => dispatch(onChangeField(valueName, e.target.value))}
+        className={value ? '' : 'input-placeholder'}
       />
     </fieldset>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input
