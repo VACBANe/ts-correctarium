@@ -39,10 +39,10 @@ export const getPriceAndDeadline = (data: Data, dispatch: Dispatch<any>) => {
 
   price *= normalFormat ? 1 : 1.2
   if (!data.language || !data.symbols) {
-    dispatch(onChangeField('sum', '0'))
+    dispatch(onChangeField('price', '0'))
     dispatch(onChangeField('time', ''))
   } else {
-    dispatch(onChangeField('sum', price.toFixed(2)))
+    dispatch(onChangeField('price', price.toFixed(2)))
   }
   data.symbols && data.language
     ? dispatch(enableButton())

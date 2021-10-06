@@ -17,7 +17,8 @@ img {
 
 .footer {
     display: flex;
-    background-color: #FCFCFC;
+    /* background-color: #FCFCFC; */
+    background-color: #000000;
     align-items: center;
     justify-content: center;
     width: 100%;
