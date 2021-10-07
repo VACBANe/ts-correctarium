@@ -1,4 +1,4 @@
-export default function calwWorkDays (today: Date, days: number) {
+export const calcWorkingDays = (today: Date, days: number) => {
   const workArr = [1, 2, 3, 4, 5]
   if (days > 0) {
     do {

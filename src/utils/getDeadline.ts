@@ -1,4 +1,4 @@
-import { calcDate } from './datemodule'
+import { calcDate } from './calcDate'
 
 type IProps = (
   numsOfSymbols: number,
@@ -6,7 +6,7 @@ type IProps = (
   normalFormat: boolean
 ) => string;
 
-export const calcTime: IProps = (numsOfSymbols, isCyrillic, normalFormat) => {
+export const getDeadline: IProps = (numsOfSymbols, isCyrillic, normalFormat) => {
   let workTime: number =
     1800 + (numsOfSymbols * 3600) / (isCyrillic ? 1333 : 333)
   workTime = workTime < 3600 ? 3600 : +workTime.toFixed()

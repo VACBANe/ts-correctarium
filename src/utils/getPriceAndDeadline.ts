@@ -3,8 +3,8 @@ import {
   onChangeField,
   enableButton,
   disableButton
-} from '.././store/actionCreator'
-import { calcTime } from './calcTime'
+} from '../store/actionCreator'
+import { getDeadline } from './getDeadline'
 type Data = {
   isDisabled: boolean;
   symbols: string;
@@ -15,10 +15,10 @@ type Data = {
   email: string;
   comment: string;
   time: string;
-  sum: string;
+  price: string;
 }
 
-export const calcTimeAndPrice = (data: Data, dispatch: Dispatch<any>) => {
+export const getPriceAndDeadline = (data: Data, dispatch: Dispatch<any>) => {
   const numsOfSymbols: number = data.symbols.replace(/\s/g, '').length
   let price: number
   const isCyrillic =
@@ -26,7 +26,7 @@ export const calcTimeAndPrice = (data: Data, dispatch: Dispatch<any>) => {
   const normalFormat =
       !!(data.format === 'rtf' || data.format === 'doc' || data.format === 'docx')
   dispatch(
-    onChangeField('time', calcTime(numsOfSymbols, isCyrillic, normalFormat))
+    onChangeField('time', getDeadline(numsOfSymbols, isCyrillic, normalFormat))
   )
 
   if (isCyrillic) {
@@ -39,10 +39,10 @@ export const calcTimeAndPrice = (data: Data, dispatch: Dispatch<any>) => {
 
   price *= normalFormat ? 1 : 1.2
   if (!data.language || !data.symbols) {
-    dispatch(onChangeField('sum', '0'))
+    dispatch(onChangeField('price', '0'))
     dispatch(onChangeField('time', ''))
   } else {
-    dispatch(onChangeField('sum', price.toFixed(2)))
+    dispatch(onChangeField('price', price.toFixed(2)))
   }
   data.symbols && data.language
     ? dispatch(enableButton())

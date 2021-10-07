@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import './style.css'
-import { calcTimeAndPrice } from './modules/calcTimeAndPrice'
-import { Footer, Input, RightSide, Select } from './components/components'
+import '../style.css'
+import { getPriceAndDeadline } from '../utils/getPriceAndDeadline'
+import { Footer, Input, RightSide, Select } from '../components/components'
 import {
   onChangeField
-} from './store/actionCreator'
+} from '../store/actionCreator'
 import { Dispatch } from 'redux'
 
 interface State {
@@ -19,14 +19,14 @@ interface State {
   email: string;
   comment: string;
   time: string;
-  sum: string;
+  price: string;
 }
 
 const App: FC = () => {
   const dispatch: Dispatch<any> = useDispatch()
   const data = useSelector((state: State) => state)
   useEffect(() => {
-    calcTimeAndPrice(data, dispatch)
+    getPriceAndDeadline(data, dispatch)
   }, [data.symbols, data.language, data.format])
 
   return (
@@ -54,21 +54,21 @@ const App: FC = () => {
             ></textarea>
             <div className={'inputs'}>
               <Input
-                text="Ваша електронна пошта"
+                legendText="Ваша електронна пошта"
                 valueName={'email'}
                 isRequired={true}
                 value={data.email}
                 onChangeField={onChangeField}
               />
               <Input
-                text="Ваше ім'я"
+                legendText="Ваше ім'я"
                 onChangeField={onChangeField}
                 value={data.name}
                 isRequired={true}
                 valueName={'name'}
               />
               <Input
-                text="Коментар або покликання"
+                legendText="Коментар або покликання"
                 onChangeField={onChangeField}
                 value={data.comment}
                 valueName={'comment'}
@@ -99,7 +99,7 @@ const App: FC = () => {
             </div>
           </div>
           <RightSide
-            sum={data.sum}
+            price={data.price}
             time={data.time}
             isDisabled={data.isDisabled}
           />

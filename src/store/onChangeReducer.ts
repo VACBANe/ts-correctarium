@@ -1,10 +1,10 @@
-import * as actionTypes from './types'
+import * as actionTypes from './actions'
 
 const initialState = {
   isDisabled: true,
   symbols: '',
   language: '',
-  sum: '0',
+  price: '0',
   format: '',
   service: '',
   name: '',
@@ -12,12 +12,8 @@ const initialState = {
   comment: '',
   time: '0'
 }
-interface IAction {
-  type: string;
-  field: string;
-  value: string;
-}
-const onChangeReducer = (state = initialState, action: IAction) => {
+
+const onChangeReducer = (state = initialState, action: actionTypes.Action) => {
   switch (action.type) {
     case actionTypes.ON_CHANGE:
       return {
