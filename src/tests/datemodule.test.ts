@@ -28,3 +28,4 @@ describe('test add function', () => {
   it('Заказ в среду в 10:00, работы на 10 рабочих дней', () => {
     expect(calcDate(324000, new Date('September 22, 2021 10:00:00'))).toStrictEqual(['05.10.2021', '19:00'])
   })
+})
