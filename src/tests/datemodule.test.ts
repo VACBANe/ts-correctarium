@@ -1,5 +1,4 @@
 import { calcDate } from '../utils/calcDate'
-
 describe('test add function', () => {
   it('Заказ в выходной день, работы на часа 4', () => {
     expect(calcDate(14400, new Date('September 25, 2021 16:00:00'))).toStrictEqual(['27.09.2021', '14:00'])
